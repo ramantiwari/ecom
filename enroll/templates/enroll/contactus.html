@@ -1,0 +1,79 @@
+{% extends 'enroll/index.html' %}
+{% load static %}
+{% block title %}Customer Registration{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Contact Us</h3>
+   <hr>
+
+   <form action="#" method="post" novalidate class="shadow p-5">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label for="username" class="form-label">Your Name</label>
+        <input type="text" class="form-control" name="username" id="username" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="inputEmail4" class="form-label">Email</label>
+        <input type="email" class="form-control" name="email" id="inputEmail4" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="phone_number" class="form-label">Number</label>
+        <input type="text" class="form-control" name="phone_number" id="phone_number" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <input type="text" class="form-control" name="message" id="message" required>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-danger">Submit</button>
+    </div>
+
+    <br>
+    <div class="text-center text-primary fw-bold">
+        <small>New User?<a href="{% url 'signup' %}" class="text-danger">Signup</a></small>
+        <small>Existing User? <a href="{% url 'login' %}" class="text-danger">login</a></small>
+    </div>
+
+    {% if form.errors %}
+        <div class="alert alert-danger mt-3">
+            {% for field, errors in form.errors.items %}
+                <strong>{{ field|title }}</strong>: {{ errors|striptags }}<br>
+            {% endfor %}
+        </div>
+    {% endif %}
+</form>
+
+
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h2>Signup Page</h2>
+
+    <form action="{% url 'signup'  %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html> -->

@@ -1,0 +1,129 @@
+{% extends 'enroll/index.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+
+<div class="container mt-4">
+    <h2>Profile</h2>
+
+    <div class="row">
+        <div class="col-md-5">
+            <h3>Your Addresses</h3>
+            {% if addresses %}
+            <form id="address-form" method="post" action="{% url 'payment_page'  %}">
+                {% csrf_token %}
+                <ul class="list-group">
+                    {% for address in addresses %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <input type="radio" name="selected_address" value="{{ address.id }}" required>
+                            <strong>{{ address.locality }}, {{ address.city }}, {{ address.state }} - {{address.zipcode}}</strong>
+                        </div>
+                        <!-- Delete Button -->
+                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <!-- Proceed to Payment Button -->
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-success w-100">Proceed to Payment</button>
+                </div>
+            </form>
+            {% else %}
+            <p class="text-muted">No addresses found.</p>
+            {% endif %}
+        </div>
+
+        <div class="col-md-7">
+            <div class="card shadow-lg p-4 rounded">
+                <h4 class="text-center mb-4">Add Address</h4>
+                <form action="{% url 'customer_profile' %}" method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="locality" class="form-label">Your Address</label>
+                        <input type="text" class="form-control" name="locality" id="locality" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" name="city" id="city" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="zipcode" class="form-label">Zip Code</label>
+                        <input type="number" class="form-control" name="zipcode" id="zipcode" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="state" class="form-label">State</label>
+                        <select class="form-control" name="state" id="state" required>
+                            <option value="" selected>---------</option>
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Arizona">Arizona</option>
+                            <option value="Arkansas">Arkansas</option>
+                            <option value="California">California</option>
+                            <option value="Colorado">Colorado</option>
+                            <option value="Connecticut">Connecticut</option>
+                            <option value="Delaware">Delaware</option>
+                            <option value="Florida">Florida</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Hawaii">Hawaii</option>
+                            <option value="Idaho">Idaho</option>
+                            <option value="Illinois">Illinois</option>
+                            <option value="Indiana">Indiana</option>
+                            <option value="Iowa">Iowa</option>
+                            <option value="Kansas">Kansas</option>
+                            <option value="Kentucky">Kentucky</option>
+                            <option value="Louisiana">Louisiana</option>
+                            <option value="Maine">Maine</option>
+                            <option value="Maryland">Maryland</option>
+                            <option value="Massachusetts">Massachusetts</option>
+                            <option value="Michigan">Michigan</option>
+                            <option value="Minnesota">Minnesota</option>
+                            <option value="Mississippi">Mississippi</option>
+                            <option value="Missouri">Missouri</option>
+                            <option value="Montana">Montana</option>
+                            <option value="Nebraska">Nebraska</option>
+                            <option value="Nevada">Nevada</option>
+                            <option value="New Hampshire">New Hampshire</option>
+                            <option value="New Jersey">New Jersey</option>
+                            <option value="New Mexico">New Mexico</option>
+                            <option value="New York">New York</option>
+                            <option value="North Carolina">North Carolina</option>
+                            <option value="North Dakota">North Dakota</option>
+                            <option value="Ohio">Ohio</option>
+                            <option value="Oklahoma">Oklahoma</option>
+                            <option value="Oregon">Oregon</option>
+                            <option value="Pennsylvania">Pennsylvania</option>
+                            <option value="Rhode Island">Rhode Island</option>
+                            <option value="South Carolina">South Carolina</option>
+                            <option value="South Dakota">South Dakota</option>
+                            <option value="Tennessee">Tennessee</option>
+                            <option value="Texas">Texas</option>
+                            <option value="Utah">Utah</option>
+                            <option value="Vermont">Vermont</option>
+                            <option value="Virginia">Virginia</option>
+                            <option value="Washington">Washington</option>
+                            <option value="West Virginia">West Virginia</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                            <option value="Wyoming">Wyoming</option>
+                        </select>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-danger w-100">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock main-content %}

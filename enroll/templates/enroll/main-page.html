@@ -1,0 +1,784 @@
+{% extends 'enroll/index.html' %}
+{% load static  %}
+
+
+{% block product_info %}
+    
+<div class="category">
+    <div class="container">
+      <div class="category-item-container has-scrollbar">
+        {% for hcd in header_category_details %}
+        <div class="category-item">
+          <div class="category-img-box">
+            <img src="{{ hcd.category_img.url }}" alt="dress & frock" width="30">
+          </div>
+
+          <div class="category-content-box">
+
+            <div class="category-content-flex">
+              <h3 class="category-item-title">{{ hcd.category_name }}</h3>
+
+              <p class="category-item-amount">({{ hcd.category_quantity }})</p>
+            </div>
+
+            <a href="#" class="category-btn">Show all</a>
+
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endblock product_info %}
+
+
+{% block category_list %}
+
+<div class="sidebar-category">
+
+    <div class="sidebar-top">
+      <h2 class="sidebar-title">Category</h2>
+
+      <!-- <button class="sidebar-close-btn" data-mobile-menu-close-btn>
+        <ion-icon name="close-outline"></ion-icon>
+      </button> -->
+    </div>
+
+    <ul class="sidebar-menu-category-list">
+
+      <li class="sidebar-menu-category">
+        {% for item in header_category_details %}
+          
+        
+        <button class="sidebar-accordion-menu" data-accordion-btn>
+
+          <div class="menu-title-flex">
+            <img src="{{ item.category_img.url }}" alt="clothes" width="20" height="20"
+              class="menu-title-img">
+
+            <p class="menu-title">{{ item.category_name }}</p>
+          </div>
+
+        </button>
+        {% endfor %}
+      </li>
+    </ul>
+
+  </div>
+
+{% endblock category_list %}
+
+
+
+{% block best_seller %}
+
+<div class="product-showcase">
+
+    <h3 class="showcase-heading">best sellers</h3>
+
+    <div class="showcase-wrapper">
+
+      <div class="showcase-container">
+
+        {% for item in listing_data.BestSeller %}
+          
+        
+        <div class="showcase" data-aos="fade-right" data-aos-duration="1500">
+
+          <a href="{% url 'allproductsinfo' item.id %}" class="showcase-img-box">
+            <img src="{{ item.product_image }}" alt="baby fabric shoes" width="75" height="75"
+              class="showcase-img">
+          </a>
+
+          <div class="showcase-content">
+
+            <a href="{% url 'allproductsinfo' item.id %}" style="text-decoration: none;">
+              <h4 class="showcase-title">{{ item.title }}</h4>
+            </a>
+
+            <!-- <div class="showcase-rating">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+            </div> -->
+
+            <div class="price-box">
+              <del>{{ item.discounted_price }}</del>
+              <p class="price">{{ item.selling_price }}</p>
+            </div>
+
+          </div>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+{% endblock best_seller %}
+
+
+
+
+{% block new_arrival %}
+    
+<div class="product-showcase">
+
+    <h2 class="title">New Arrivals</h2>
+
+    <div class="showcase-wrapper has-scrollbar">
+
+      <div class="showcase-container">
+
+        <!-- NOTE New Arrival code -->
+
+        {% for na in listing_data.NewArrivals %}
+        
+        <div class="showcase" data-aos="zoom-in-up" data-aos-duration="500">
+          <a href="{% url 'allproductsinfo' na.id %}" class="showcase-img-box">
+            <img src="{{ na.product_image }}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
+          </a>
+          <div class="showcase-content">
+            <a href="{% url 'allproductsinfo' na.id %}" style="text-decoration: none;">
+              <h4 class="showcase-title">{{ na.title }}</h4>
+            </a>
+            <a href="{% url 'allproductsinfo' na.id %}" class="showcase-category" style="text-decoration: none;">{{ na.category }}</a>
+            <div class="price-box">
+              <p class="price">{{ na.selling_price }}</p>
+              <del>{{ na.discounted_price }}</del>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+
+
+      </div>
+      <div class="showcase-container">
+
+        <!-- NOTE New Arrival code -->
+
+        {% for na in listing_data.NewArrivals %}
+        
+        <div class="showcase" data-aos="zoom-in-up" data-aos-duration="500">
+          <a href="{% url 'allproductsinfo' na.id %}" class="showcase-img-box">
+            <img src="{{ na.product_image }}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
+          </a>
+          <div class="showcase-content">
+            <a href="{% url 'allproductsinfo' na.id %}" style="text-decoration: none;">
+              <h4 class="showcase-title">{{ na.title }}</h4>
+            </a>
+            <a href="{% url 'allproductsinfo' na.id %}" class="showcase-category" style="text-decoration: none;">{{ na.category }}</a>
+            <div class="price-box">
+              <p class="price">{{ na.selling_price }}</p>
+              <del>{{ na.discounted_price }}</del>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+
+
+      </div>
+
+      <!-- second show case container for NEW Arrival  -->
+
+     
+    </div>
+  </div>
+
+{% endblock new_arrival %}
+
+
+
+{% block trending %}
+    
+<div class="product-showcase">
+            
+    <h2 class="title">Trending</h2>
+  
+    <div class="showcase-wrapper  has-scrollbar">
+  
+      <div class="showcase-container">
+
+        {% for tre in listing_data.Trending %}
+        <div class="showcase" data-aos="zoom-in-up" data-aos-duration="1000">
+          <a href="{% url 'allproductsinfo' tre.id %}" class="showcase-img-box">
+            <img src="{{ tre.product_image }}" alt="running & trekking shoes - white" class="showcase-img"
+              width="70">
+          </a>
+          <div class="showcase-content">
+            <a href="{% url 'allproductsinfo' tre.id %}" style="text-decoration: none;">
+              <h4 class="showcase-title">{{ tre.title }}</h4>
+            </a>
+            <a href="{% url 'allproductsinfo' tre.id %}" class="showcase-category" style="text-decoration: none;">{{ tre.category }}</a>
+            <div class="price-box">
+              <p class="price">{{ tre.selling_price }}</p>
+              <del>{{ tre.discounted_price }}</del>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+  
+      </div>
+      <div class="showcase-container">
+
+        {% for tre in listing_data.Trending %}
+        <div class="showcase" data-aos="zoom-in-up" data-aos-duration="1000">
+          <a href="{% url 'allproductsinfo' tre.id %}" class="showcase-img-box">
+            <img src="{{ tre.product_image }}" alt="running & trekking shoes - white" class="showcase-img"
+              width="70">
+          </a>
+          <div class="showcase-content">
+            <a href="{% url 'allproductsinfo' tre.id %}" style="text-decoration: none;">
+              <h4 class="showcase-title">{{ tre.title }}</h4>
+            </a>
+            <a href="{% url 'allproductsinfo' tre.id %}" class="showcase-category" style="text-decoration: none;">{{ tre.category }}</a>
+            <div class="price-box">
+              <p class="price">{{ tre.selling_price }}</p>
+              <del>{{ tre.discounted_price }}</del>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+  
+      </div>
+  
+      
+  
+    </div>
+  
+  </div>
+
+{% endblock trending %}
+
+
+
+{% block top_rated %}
+    
+<div class="product-showcase">
+            
+    <h2 class="title">Top Rated</h2>
+  
+    <div class="showcase-wrapper  has-scrollbar">
+  
+      <div class="showcase-container">
+        {% for tr in listing_data.TopRated %}
+        <div class="showcase" data-aos="zoom-in-up" data-aos-duration="1500">
+          <a href="{% url 'allproductsinfo' tr.id %}" class="showcase-img-box">
+            <img src="{{ tr.product_image }}" alt="pocket watch leather pouch" class="showcase-img"
+              width="70">
+          </a>
+          <div class="showcase-content">
+            <a href="{% url 'allproductsinfo' tr.id %}" style="text-decoration: none;">
+              <h4 class="showcase-title">{{ tr.title }}</h4>
+            </a>
+            <a href="{% url 'allproductsinfo' tr.id %}" class="showcase-category" style="text-decoration: none;">{{ tr.category }}</a>
+            <div class="price-box">
+              <p class="price">${{ tr.selling_price }}</p>
+              <del>${{ tr.discounted_price }}</del>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+  
+      <div class="showcase-container">
+        {% for tr in listing_data.TopRated %}
+        <div class="showcase" data-aos="zoom-in-up" data-aos-duration="1500">
+          <a href="{% url 'allproductsinfo' tr.id %}" class="showcase-img-box">
+            <img src="{{ tr.product_image }}" alt="pocket watch leather pouch" class="showcase-img"
+              width="70">
+          </a>
+          <div class="showcase-content">
+            <a href="{% url 'allproductsinfo' tr.id %}" style="text-decoration: none;">
+              <h4 class="showcase-title">{{ tr.title }}</h4>
+            </a>
+            <a href="{% url 'allproductsinfo' tr.id %}" class="showcase-category" style="text-decoration: none;">{{ tr.category }}</a>
+            <div class="price-box">
+              <p class="price">${{ tr.selling_price }}</p>
+              <del>${{ tr.discounted_price }}</del>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+  
+    </div>
+  
+  </div>
+
+{% endblock top_rated %}
+
+
+{% block deal_of_the_day %}
+
+<div class="product-featured">
+
+    <h2 class="title">Deal of the day</h2>
+
+    <div class="showcase-wrapper has-scrollbar">
+      {% for dod in listing_data.DealOfTheDay %}
+        
+     
+      <div class="showcase-container">
+
+        <div class="showcase">
+          
+          <div class="showcase-banner">
+            <img src="{{ dod.product_image }}" alt="{{ dod.title }}" class="showcase-img">
+          </div>
+
+          <div class="showcase-content">
+            
+            <!-- <div class="showcase-rating">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+            </div> -->
+
+            <a href="#" style="text-decoration: none;">
+              <h3 class="showcase-title">{{ dod.title }}</h3>
+            </a>
+
+            <p class="showcase-desc">
+              {{ dod.description  }}
+            </p>
+
+            <div class="price-box">
+              <p class="price">{{ dod.selling_price }}</p>
+
+              <del>{{ dod.discounted_price }}</del>
+            </div>
+
+            <a href="{% url 'add_to_cart' dod.id %}" style="text-decoration: none;"><button class="add-cart-btn">add to cart</button></a>
+            
+
+            <div class="showcase-status">
+              <div class="wrapper">
+                <p>
+                  already sold: <b>20</b>
+                </p>
+
+                <p>
+                  available: <b>40</b>
+                </p>
+              </div>
+
+              <div class="showcase-status-bar"></div>
+            </div>
+
+            <div class="countdown-box">
+
+              <p class="countdown-desc">
+                Hurry Up! Offer ends in:
+              </p>
+
+              <div class="countdown">
+
+                <div class="countdown-content">
+
+                  <p class="display-number">360</p>
+
+                  <p class="display-text">Days</p>
+
+                </div>
+
+                <div class="countdown-content">
+                  <p class="display-number">24</p>
+                  <p class="display-text">Hours</p>
+                </div>
+
+                <div class="countdown-content">
+                  <p class="display-number">59</p>
+                  <p class="display-text">Min</p>
+                </div>
+
+                <div class="countdown-content">
+                  <p class="display-number">00</p>
+                  <p class="display-text">Sec</p>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+
+{% endblock deal_of_the_day %}
+
+
+
+{% block new_products %}
+    
+<div class="product-main">
+
+    <h2 class="title">New Products</h2>
+
+    <div class="product-grid" >
+
+      {% for np in new_productss.new_products %}
+
+      <div class="showcase" >
+
+        <div class="showcase-banner">
+
+          <img src="{{ np.product_image }}" alt="img" width="300" class="product-img default">
+          <img src="{{ np.product_image }}" alt="img" width="300" class="product-img hover">
+
+          <!-- <p class="showcase-badge">15%</p> -->
+
+          <div class="showcase-actions">
+
+            <!-- <button class="btn-action">
+              <ion-icon name="heart-outline"></ion-icon>
+            </button> -->
+
+            <a href="{% url 'allproductsinfo' np.id %}" style="text-decoration: none;">
+            <button class="btn-action">
+              <ion-icon name="eye-outline"></ion-icon>
+            </button>
+          </a>
+
+            <!-- <button class="btn-action">
+              <ion-icon name="repeat-outline"></ion-icon>
+            </button> -->
+
+            <a href="{% url 'add_to_cart' np.id %}">
+            <button class="btn-action">
+              <ion-icon name="bag-add-outline"></ion-icon>
+            </button>
+          </a>
+
+          </div>
+
+        </div>
+
+        <div class="showcase-content">
+
+          <a href="#" class="showcase-category" style="text-decoration: none;">{{ np.category }}</a>
+
+          <a href="#" style="text-decoration: none;">
+            <h3 class="showcase-title" >{{ np.title }}</h3>
+          </a>
+
+          
+          <div class="price-box">
+            <p class="price">{{ np.selling_price }}</p>
+            <del>{{ np.discounted_price }}</del>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+
+{% endblock new_products %}
+
+
+
+{% block testimonials %}
+    
+<div>
+
+    <div class="container">
+
+      <div class="testimonials-box">
+
+        <!--
+          - TESTIMONIALS
+        -->
+
+        <div class="testimonial">
+
+          <h2 class="title">testimonial</h2>
+
+          <div class="testimonial-card">
+
+            <!-- <img src="./assets/images/testimonial-1.jpg" alt="alan doe" class="testimonial-banner" width="80" height="80"> -->
+            <img src="{% static 'enroll/images/testimonial-1.jpg' %}" alt="alan doe" class="testimonial-banner" width="80" height="80">
+
+            <p class="testimonial-name">Alan Doe</p>
+
+            <p class="testimonial-title">CEO & Founder Invision</p>
+
+            <!-- <img src="./assets/images/icons/quotes.svg" alt="quotation" class="quotation-img" width="26"> -->
+            <img src="{% static 'enroll/images/icons/quotes.svg' %}" alt="quotation" class="quotation-img" width="26">
+
+            <p class="testimonial-desc">
+              Lorem ipsum dolor sit amet consectetur Lorem ipsum
+              dolor dolor sit amet.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!--
+          - CTA
+        -->
+
+        <div class="cta-container">
+
+          <!-- <img src="./assets/images/cta-banner.jpg" alt="summer collection" class="cta-banner"> -->
+          <!-- <img src="{% static 'enroll/images/cta-banner.jpg' %}" alt="summer collection" class="cta-banner"> -->
+          <img src="{% static 'enroll/images/banner-2.png' %}" alt="summer collection" class="cta-banner">
+
+          <a href="#" class="cta-content">
+
+            <p class="discount">25% Discount</p>
+
+            <h2 class="cta-title">collection</h2>
+
+            <p class="cta-text">Starting</p>
+
+            <button class="cta-btn">Shop now</button>
+
+          </a>
+
+        </div>
+
+
+
+        <!--
+          - SERVICE
+        -->
+
+        <div class="service">
+
+          <h2 class="title">Our Services</h2>
+
+          <div class="service-container">
+
+            <a href="#" class="service-item" style="text-decoration: none;">
+
+              <div class="service-icon">
+                <ion-icon name="boat-outline"></ion-icon>
+              </div>
+
+              <div class="service-content" data-aos="fade-left" data-aos-easing="linear"
+              data-aos-duration="500">
+
+                <h3 class="service-title">Worldwide Delivery</h3>
+                <p class="service-desc">For Order Over $100</p>
+
+              </div>
+
+            </a>
+
+            <a href="#" class="service-item"style="text-decoration: none;" >
+            
+              <div class="service-icon">
+                <ion-icon name="rocket-outline"></ion-icon>
+              </div>
+            
+              <div class="service-content" data-aos="fade-left" data-aos-easing="linear"
+              data-aos-duration="700">
+            
+                <h3 class="service-title">Next Day delivery</h3>
+                <p class="service-desc">UK Orders Only</p>
+            
+              </div>
+            
+            </a>
+
+            <a href="#" class="service-item" style="text-decoration: none;">
+            
+              <div class="service-icon">
+                <ion-icon name="call-outline"></ion-icon>
+              </div>
+            
+              <div class="service-content" data-aos="fade-left" data-aos-easing="linear"
+              data-aos-duration="900">
+            
+                <h3 class="service-title">Best Online Support</h3>
+                <p class="service-desc">Hours: 8AM - 11PM</p>
+            
+              </div>
+            
+            </a>
+
+            <a href="#" class="service-item" style="text-decoration: none;">
+            
+              <div class="service-icon">
+                <ion-icon name="arrow-undo-outline"></ion-icon>
+              </div>
+            
+              <div class="service-content" data-aos="fade-left" data-aos-easing="linear"
+              data-aos-duration="1100">
+            
+                <h3 class="service-title">Return Policy</h3>
+                <p class="service-desc">Easy & Free Return</p>
+            
+              </div>
+            
+            </a>
+
+            <a href="#" class="service-item" style="text-decoration: none;">
+            
+              <div class="service-icon">
+                <ion-icon name="ticket-outline"></ion-icon>
+              </div>
+            
+              <div class="service-content" data-aos="fade-left" data-aos-easing="linear"
+              data-aos-duration="1300">
+            
+                <h3 class="service-title">30% money back</h3>
+                <p class="service-desc">For Order Over $100</p>
+            
+              </div>
+            
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+{% endblock testimonials %}
+
+
+
+{% block blog %}
+
+  <div class="blog">
+
+    <div class="container">
+
+      <div class="blog-container has-scrollbar">
+
+        <div class="blog-card" data-aos="zoom-in" 
+        data-aos-duration="500">
+
+          <a href="#">
+            <!-- <img src="./assets/images/blog-1.jpg" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner"> -->
+            <img src="{% static 'enroll/images/blog-1.png' %}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner">
+          </a>
+
+          <!-- <div class="blog-content">
+
+            <a href="#" class="blog-category">FESTO</a>
+
+            <a href="#">
+              <h3 class="blog-title">Lorem ipsum dolor sit, amet consectetur adipisicing </h3>
+            </a>
+
+            <p class="blog-meta">
+              By <cite>Mr Admin</cite> / <time datetime="2022-04-06">Apr 06, 2022</time>
+            </p>
+
+          </div> -->
+
+        </div>
+
+        <div class="blog-card" data-aos="zoom-in" 
+        data-aos-duration="1000">
+
+          <a href="#">
+            <!-- <img src="./assets/images/blog-1.jpg" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner"> -->
+            <img src="{% static 'enroll/images/blog-2.png' %}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner">
+          </a>
+
+          <!-- <div class="blog-content">
+
+            <a href="#" class="blog-category">FESTO</a>
+
+            <a href="#">
+              <h3 class="blog-title">Lorem ipsum dolor sit, amet consectetur adipisicing </h3>
+            </a>
+
+            <p class="blog-meta">
+              By <cite>Mr Admin</cite> / <time datetime="2022-04-06">Apr 06, 2022</time>
+            </p>
+
+          </div> -->
+
+        </div>
+
+        <div class="blog-card" data-aos="zoom-in" 
+        data-aos-duration="1500">
+
+          <a href="#">
+            <!-- <img src="./assets/images/blog-1.jpg" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner"> -->
+            <img src="{% static 'enroll/images/blog-3.png' %}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner">
+          </a>
+
+          <!-- <div class="blog-content">
+
+            <a href="#" class="blog-category">FESTO</a>
+
+            <a href="#">
+              <h3 class="blog-title">Lorem ipsum dolor sit, amet consectetur adipisicing </h3>
+            </a>
+
+            <p class="blog-meta">
+              By <cite>Mr Admin</cite> / <time datetime="2022-04-06">Apr 06, 2022</time>
+            </p>
+
+          </div> -->
+
+        </div>
+
+        <div class="blog-card" data-aos="zoom-in" 
+        data-aos-duration="2000">
+
+          <a href="#">
+            <!-- <img src="./assets/images/blog-1.jpg" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner"> -->
+            <img src="{% static 'enroll/images/blog-4.png' %}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner">
+          </a>
+
+          <!-- <div class="blog-content">
+
+            <a href="#" class="blog-category" style="text-decoration: none;">FESTO</a>
+
+            <a href="#">
+              <h3 class="blog-title" style="text-decoration: none;">Lorem ipsum dolor sit, amet consectetur adipisicing </h3>
+            </a>
+
+            <p class="blog-meta">
+              By <cite>Mr Admin</cite> / <time datetime="2022-04-06">Apr 06, 2022</time>
+            </p>
+
+          </div> -->
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+{% endblock blog %}

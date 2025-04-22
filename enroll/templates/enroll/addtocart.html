@@ -1,0 +1,79 @@
+{% extends 'enroll/index.html' %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+  <div class="row">
+    <h1 class="text-center mb-5">Shopping Cart</h1>
+    
+    <!-- Cart Items Section -->
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <h3>Your Cart</h3>
+          
+          {% if dashboard_data.cart_info %}
+            {% for item in dashboard_data.cart_info %}
+              <div class="row mb-4">
+                <div class="col-sm-3 text-center align-self-center">
+                  <img src="{{ item.product_image }}" alt="{{ item.title }}" class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                </div>
+                <div class="col-sm-9">
+                  <div>
+                    <h5>{{ item.title }}</h5>
+                    <p class="mb-2 text-muted small">Description: {{ item.description }}</p>
+                    <div class="my-3">
+                      <label>Quantity:</label>
+                      <a href="{% url 'decrease_cart_quantity' item.id %}" class="minus-cart btn"><i class="fas fa-minus-square fa-lg"></i></a>
+                      <span id="quantity">{{ item.quantity }}</span>
+                      <a href="{% url 'increase_cart_quantity' item.id %}" class="plus-cart btn"><i class="fas fa-plus-square fa-lg"></i></a>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <form action="{% url 'remove_from_cart' item.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                      </form>
+                      <p class="mb-0"><strong>Rs. {{ item.discounted_price }}</strong></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="text-muted">
+            {% endfor %}
+          {% else %}
+            <p class="text-center text-muted">Your cart is empty.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Summary Section -->
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h3>Order Summary</h3>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+              Subtotal <span>Rs. {{ total_price }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              Shipping <span>Rs. 70.00</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+              <div><strong>Total (including VAT)</strong></div>
+              <span><strong>Rs. {{ total_price|add:70 }}</strong></span>
+            </li>
+          </ul>
+          {% if dashboard_data.cart_info %}
+            <div class="d-grid">
+              <a href="{% url 'checkout' %}" class="btn btn-primary">Place Order</a>
+            </div>
+          {% else %}
+            <p class="text-center text-muted">Add items to place an order.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main-content %}

@@ -1,0 +1,68 @@
+{% extends 'enroll/index.html' %}
+{% load static %}
+{% block title %}Payment{% endblock title %}
+{% block main-content %}
+
+<div class="container mt-4">
+    <h2>Payment Page</h2>
+
+    <div class="card p-4">
+        <h4>Delivery Address:</h4>
+        <p>{{ address.locality }}, {{ address.city }}, {{ address.state }} - {{ address.zipcode }}</p>
+
+        <hr>
+
+        <h4>Choose Payment Method:</h4>
+        <form id="payment-form" method="post" action="{% url 'process_payment' %}">
+            {% csrf_token %}
+            <input type="hidden" name="address_id" value="{{ address.id }}">
+
+            <div class="mb-3">
+                <label><input type="radio" name="payment_method" value="card" required> Credit/Debit Card</label>
+            </div>
+
+            <div id="card-container"></div>
+
+            <button type="submit" class="btn btn-success w-100">Make Payment {{ total_price }}</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+<script>
+    async function initializeSquare() {
+        const applicationId = "{{ SQUARE_APPLICATION_ID }}";
+        const locationId = "{{ SQUARE_LOCATION_ID }}";
+
+        if (!window.Square) {
+            console.error("Square.js failed to load.");
+            return;
+        }
+
+        try {
+            const payments = window.Square.payments(applicationId, locationId);
+            const card = await payments.card();
+            await card.attach("#card-container");
+
+            document.getElementById("payment-form").addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                const tokenResult = await card.tokenize();
+                if (tokenResult.status === "OK") {
+                    document.getElementById("payment-form").insertAdjacentHTML("beforeend",
+                        `<input type="hidden" name="square_token" value="${tokenResult.token}">`);
+                    event.target.submit();
+                } else {
+                    console.error("Tokenization failed:", tokenResult.errors);
+                }
+            });
+
+        } catch (error) {
+            console.error("Square Payments Initialization Failed:", error);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", initializeSquare);
+</script>
+
+{% endblock main-content %}
