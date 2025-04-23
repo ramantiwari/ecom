@@ -1,0 +1,106 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django migrations
+*/migrations/
+!*/migrations/__init__.py
+db.sqlite3
+# Environments
+.env
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+static_root/
+local_settings.py
+config/settings/local.py
+
+# VSCode settings
+.vscode/
+
+# macOS stuff
+.DS_Store
+
+# Windows stuff
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox/
+.nox/
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# MyPy
+.mypy_cache/
+
+# Pytest
+.pytest_cache/
+
+# Pipenv
+Pipfile.lock
+
+# Build/dist
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Other IDEs
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# JetBrains IDE
+.idea/
+
+# Node stuff (if using for frontend)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Docker stuff
+*.pid
+*.seed
+*.bak
+*.swp
+*.swo
+
+# gunicorn
+gunicorn.pid
+db.sqlite3
